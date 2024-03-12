@@ -8,7 +8,8 @@
             var conn;
             var msg = document.getElementById("msg");
             var log = document.getElementById("log");
-
+            var host = window.location.host;
+            var wsUrl = "ws://" + host + "/chat"
             function appendLog(item) {
                 var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
                 log.appendChild(item);
@@ -29,9 +30,9 @@
                 return false;
             };
 
-            if (window["WebSocket"]) {//如果支持websockte就尝试连接
+            if (window["WebSocket"]) {//如果支持websocket就尝试连接
                 //从浏览器的开发者工具里看一下ws的请求头
-                conn = new WebSocket("ws://127.0.0.1:5678/chat");//请求跟websocket服务端建立连接(注意端口要一致)。关闭浏览器页面时会自动断开连接
+                conn = new WebSocket(wsUrl);//请求跟websocket服务端建立连接(注意端口要一致)。关闭浏览器页面时会自动断开连接
                 conn.onclose = function (evt) {
                     var item = document.createElement("div")
                     item.innerHTML = "<b>Connection closed.</b>";//连接关闭时打印一条信息
